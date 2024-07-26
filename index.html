@@ -383,10 +383,8 @@
                                 <div class="s-type-list big">
                                     <div class="anchor" style="position: absolute; left: 50%; opacity: 0;"></div>
                                     <label for="type-google" class="" data-id="group-a"><span>常用</span></label>
-                                    <label for="type-google1" data-id="group-b"><span>搜索</span></label>
-                                    <label for="type-br" data-id="group-c"><span>工具</span></label>
-                                    <label for="type-kd100" data-id="group-d"><span>生活</span></label>
-                                    <label for="type-zhaopin" data-id="group-e"><span>求职</span></label>
+                                    <label for="type-br" data-id="group-b"><span>工具</span></label>
+                                    <label for="type-kd100" data-id="group-c"><span>生活</span></label>
                                 </div>
                             </div>
                         </div>
@@ -406,13 +404,29 @@
                                             </label>
                                         </li>
 
-                                    <li><input hidden="" type="radio" name="type" id="type-baidu"
+                                    <li><input hidden="" type="radio" name="type" id="type-bing"
                                             value="https://www.bing.com/search?q=" 
                                             data-placeholder="一点Bing">
                                             <label for="type-baidu">
                                                 <span class="text-muted">必应</span>
                                             </label>
                                         </li>
+
+                                    <li><input hidden="" type="radio" name="type" id="type-baidu"
+                                            value="https://www.baidu.com/s?wd=" 
+                                            data-placeholder="百度两下">
+                                        <label for="type-baidu1">
+                                            <span class="text-muted">百度</span>
+                                        </label>
+                                    </li>
+
+                                    <li><input hidden="" type="radio" name="type" id="type-translate"
+                                            value="https://translate.google.com/?hl=zh-CN&sl=en&tl=zh-CN&op=translate&text=" 
+                                            data-placeholder="谷歌翻译">
+                                        <label for="type-translate">
+                                            <span class="text-muted">谷译</span>
+                                        </label>
+                                    </li>
 
                                     <li><input hidden="" type="radio" name="type" id="type-github"
                                             value="https://github.com/search?q=" 
@@ -421,7 +435,18 @@
                                                 <span class="text-muted">github</span>
                                             </label>
                                         </li>
-
+                                </ul>
+                            </div>
+                            <div class="search-group group-b ">
+                                <ul class="search-type">
+                                    <li><input hidden="" type="radio" name="type" id="type-android"
+                                            value="https://developer.android.com/s/results?hl=zh-cn&q=" 
+                                            data-placeholder="Android开发者搜索">
+                                            <label for="type-android">
+                                                <span class="text-muted">Android</span>
+                                            </label>
+                                        </li>
+                                    
                                     <li><input hidden="" type="radio" name="type" id="type-dependency"
                                             value="https://mvnrepository.com/search?q="
                                             data-placeholder="search your dependency version">
@@ -438,46 +463,16 @@
                                             </label>
                                         </li>
 
-                                </ul>
-                            </div>
-                            <div class="search-group group-b ">
-                                <ul class="search-type">
-                                    <li><input hidden="" type="radio" name="type" id="type-google1"
-                                            value="https://www.google.com/search?q=" data-placeholder="谷歌一下"><label
-                                            for="type-google1"><span class="text-muted">谷歌</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-baidu1"
-                                            value="https://www.baidu.com/s?wd=" data-placeholder="百度两下"><label
-                                            for="type-baidu1"><span class="text-muted">百度</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-bing1"
-                                            value="https://cn.bing.com/search?q=" data-placeholder="必应搜索"><label
-                                            for="type-bing1"><span class="text-muted">必应</span></label></li>
+                                    <li><input hidden="" type="radio" name="type" id="type-collins"
+                                            value="https://www.collinsdictionary.com/dictionary/english/" 
+                                            data-placeholder="柯林斯词典">
+                                            <label for="type-collins">
+                                                <span class="text-muted">collins</span>
+                                            </label>
+                                        </li>
                                 </ul>
                             </div>
                             <div class="search-group group-c ">
-                                <ul class="search-type">
-                                    <li><input hidden="" type="radio" name="type" id="type-br"
-                                            value="https://rank.chinaz.com/all/"
-                                            data-placeholder="请输入网址(不带https://)"><label for="type-br"><span
-                                                class="text-muted">权重查询</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-links"
-                                            value="https://link.chinaz.com/" data-placeholder="请输入网址(不带https://)"><label
-                                            for="type-links"><span class="text-muted">友链检测</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-icp"
-                                            value="https://icp.aizhan.com/" data-placeholder="请输入网址(不带https://)"><label
-                                            for="type-icp"><span class="text-muted">备案查询</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-ping"
-                                            value="https://ping.chinaz.com/" data-placeholder="请输入网址(不带https://)"><label
-                                            for="type-ping"><span class="text-muted">PING检测</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-404"
-                                            value="https://tool.chinaz.com/Links/?DAddress="
-                                            data-placeholder="请输入网址(不带https://)"><label for="type-404"><span
-                                                class="text-muted">死链检测</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-ciku"
-                                            value="https://www.ciku5.com/s?wd=" data-placeholder="请输入关键词"><label
-                                            for="type-ciku"><span class="text-muted">关键词挖掘</span></label></li>
-                                </ul>
-                            </div>
-                            <div class="search-group group-d ">
                                 <ul class="search-type">
                                     <li><input hidden="" type="radio" name="type" id="type-xiachufang"
                                             value="https://www.xiachufang.com/search/?keyword="
@@ -496,23 +491,6 @@
                                     <li><input hidden="" type="radio" name="type" id="type-qunar"
                                             value="https://www.qunar.com/?" data-placeholder="去哪儿"><label
                                             for="type-qunar"><span class="text-muted">去哪儿</span></label></li>
-                                </ul>
-                            </div>
-                            <div class="search-group group-e ">
-                                <ul class="search-type">
-                                    <li><input hidden="" type="radio" name="type" id="type-zhaopin"
-                                            value="https://sou.zhaopin.com/jobs/searchresult.ashx?kw="
-                                            data-placeholder="智联招聘"><label for="type-zhaopin"><span
-                                                class="text-muted">智联招聘</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-51job"
-                                            value="https://search.51job.com/?" data-placeholder="前程无忧"><label
-                                            for="type-51job"><span class="text-muted">前程无忧</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-lagou"
-                                            value="https://www.lagou.com/jobs/list_" data-placeholder="拉钩网"><label
-                                            for="type-lagou"><span class="text-muted">拉钩网</span></label></li>
-                                    <li><input hidden="" type="radio" name="type" id="type-liepin"
-                                            value="https://www.liepin.com/zhaopin/?key=" data-placeholder="猎聘网"><label
-                                            for="type-liepin"><span class="text-muted">猎聘网</span></label></li>
                                 </ul>
                             </div>
                         </div>
