@@ -11,6 +11,9 @@ export default {
       if (url.pathname === "/health" && request.method === "GET") {
         return json({ ok: true }, 200, cors);
       }
+      if (url.pathname === "/diagnostics" && request.method === "GET") {
+        return diagnostics(env, cors);
+      }
       if (url.pathname === "/auth/login" && request.method === "POST") {
         const { password } = await request.json();
         if (typeof password !== "string" || !(await secureEqual(password, env.ADMIN_PASSWORD))) {
@@ -112,6 +115,23 @@ async function githubRead(env, cors) {
   const file = await response.json();
   const content = new TextDecoder().decode(Uint8Array.from(atob(file.content.replace(/\s/g, "")), char => char.charCodeAt(0)));
   return json({ content, sha: file.sha }, 200, cors);
+}
+
+async function diagnostics(env, cors) {
+  const response = await githubRequest(env, env.NAVIGATION_PATH, { headers: { "cache-control": "no-store" } });
+  return json({
+    githubStatus: response.status,
+    configuration: {
+      allowedOrigin: Boolean(env.ALLOWED_ORIGIN),
+      githubOwner: Boolean(env.GITHUB_OWNER),
+      githubRepo: Boolean(env.GITHUB_REPO),
+      githubBranch: Boolean(env.GITHUB_BRANCH),
+      navigationPath: Boolean(env.NAVIGATION_PATH),
+      githubToken: Boolean(env.GITHUB_TOKEN),
+      adminPassword: Boolean(env.ADMIN_PASSWORD),
+      sessionSecret: Boolean(env.SESSION_SECRET)
+    }
+  }, 200, cors);
 }
 
 async function githubWrite(request, env, cors) {
