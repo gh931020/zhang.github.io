@@ -1,0 +1,3 @@
+# Local Cloudflare Worker secrets. Never commit these values.
+workers/nav-admin/.dev.vars
+

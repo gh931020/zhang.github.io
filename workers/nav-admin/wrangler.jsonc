@@ -1,0 +1,15 @@
+{
+  "name": "nav-admin-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-14",
+  "vars": {
+    "ALLOWED_ORIGIN": "https://gh931020.github.io",
+    "GITHUB_OWNER": "gh931020",
+    "GITHUB_REPO": "zhang.github.io",
+    "GITHUB_BRANCH": "main",
+    "NAVIGATION_PATH": "data/protected-navigation.json"
+  },
+  "secrets": {
+    "required": ["ADMIN_PASSWORD", "SESSION_SECRET", "GITHUB_TOKEN"]
+  }
+}

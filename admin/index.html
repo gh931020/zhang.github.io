@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>导航管理</title>
+  <style>
+    body { max-width: 880px; margin: 48px auto; padding: 0 20px; font: 16px/1.5 system-ui, sans-serif; color: #1f2937; }
+    input, textarea, button { box-sizing: border-box; font: inherit; }
+    input, textarea { width: 100%; padding: 10px; margin: 8px 0 16px; border: 1px solid #cbd5e1; border-radius: 6px; }
+    textarea { min-height: 440px; font-family: ui-monospace, monospace; font-size: 14px; }
+    button { padding: 10px 16px; border: 0; border-radius: 6px; background: #2563eb; color: #fff; cursor: pointer; }
+    button + button { margin-left: 8px; background: #475569; } .hidden { display: none; } #notice { margin: 16px 0; } .error { color: #b91c1c; } .ok { color: #047857; }
+  </style>
+</head>
+<body>
+  <h1>私密导航管理</h1>
+  <p>保存后 Worker 会提交 <code>data/protected-navigation.json</code> 到 GitHub；GitHub Pages 发布后生效。</p>
+  <section id="login">
+    <label>管理密码<input id="password" type="password" autocomplete="current-password"></label>
+    <button id="loginButton">登录</button>
+  </section>
+  <section id="editor" class="hidden">
+    <textarea id="content" aria-label="导航 JSON"></textarea>
+    <button id="reloadButton">重新加载</button><button id="saveButton">保存到 GitHub</button>
+    <button id="logoutButton">退出</button>
+  </section>
+  <p id="notice" role="status"></p>
+  <script src="config.js"></script>
+  <script>
+    const api = window.NAV_ADMIN_API?.replace(/\/$/, '');
+    const login = document.querySelector('#login');
+    const editor = document.querySelector('#editor');
+    const notice = document.querySelector('#notice');
+    const content = document.querySelector('#content');
+    let sha = '';
+    const tokenKey = 'nav-admin-session';
+
+    function message(text, type = '') { notice.textContent = text; notice.className = type; }
+    function headers() { return { 'content-type': 'application/json', authorization: `Bearer ${sessionStorage.getItem(tokenKey)}` }; }
+    async function request(path, options = {}) {
+      if (!api) throw new Error('请先在 admin/config.js 填写 Worker 地址');
+      const response = await fetch(api + path, { ...options, headers: { ...headers(), ...options.headers } });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.error || '请求失败');
+      return body;
+    }
+    async function load() {
+      const data = await request('/navigation'); sha = data.sha; content.value = JSON.stringify(JSON.parse(data.content), null, 2); message('已加载当前导航数据', 'ok');
+    }
+    async function signIn() {
+      try {
+        const data = await request('/auth/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ password: document.querySelector('#password').value }) });
+        sessionStorage.setItem(tokenKey, data.token); login.classList.add('hidden'); editor.classList.remove('hidden'); await load();
+      } catch (error) { message(error.message, 'error'); }
+    }
+    async function save() {
+      try { JSON.parse(content.value); const data = await request('/navigation', { method: 'PUT', body: JSON.stringify({ content: content.value, sha }) }); sha = data.sha; message('已提交到 GitHub，等待 GitHub Pages 发布即可生效。', 'ok'); }
+      catch (error) { message(error.message, 'error'); }
+    }
+    document.querySelector('#loginButton').onclick = signIn;
+    document.querySelector('#reloadButton').onclick = () => load().catch(error => message(error.message, 'error'));
+    document.querySelector('#saveButton').onclick = save;
+    document.querySelector('#logoutButton').onclick = () => { sessionStorage.removeItem(tokenKey); editor.classList.add('hidden'); login.classList.remove('hidden'); };
+    if (sessionStorage.getItem(tokenKey)) { login.classList.add('hidden'); editor.classList.remove('hidden'); load().catch(() => { sessionStorage.removeItem(tokenKey); editor.classList.add('hidden'); login.classList.remove('hidden'); }); }
+  </script>
+</body>
+</html>
