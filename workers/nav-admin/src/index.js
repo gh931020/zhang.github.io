@@ -58,7 +58,8 @@ function toBase64Url(bytes) {
 }
 
 function fromBase64Url(value) {
-  const base64 = value.replaceAll("-", "+").replaceAll("_", "/") + "===".slice((value.length + 3) % 4);
+  const padding = (4 - (value.length % 4)) % 4;
+  const base64 = value.replaceAll("-", "+").replaceAll("_", "/") + "=".repeat(padding);
   return Uint8Array.from(atob(base64), char => char.charCodeAt(0));
 }
 
