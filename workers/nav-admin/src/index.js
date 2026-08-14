@@ -119,8 +119,10 @@ async function githubRead(env, cors) {
 
 async function diagnostics(env, cors) {
   const response = await githubRequest(env, env.NAVIGATION_PATH, { headers: { "cache-control": "no-store" } });
+  const detail = await response.clone().json().catch(() => ({}));
   return json({
     githubStatus: response.status,
+    githubMessage: detail.message || null,
     configuration: {
       allowedOrigin: Boolean(env.ALLOWED_ORIGIN),
       githubOwner: Boolean(env.GITHUB_OWNER),
